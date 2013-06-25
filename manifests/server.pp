@@ -29,11 +29,10 @@ class mysql::server (
   $service_provider = $mysql::service_provider
 ) inherits mysql {
 
-  Class['mysql::server'] -> Class['mysql::config']
-
+  # disabled some code that breaks in puppet 2.6: cw 130625
+  # Class['mysql::server'] -> Class['mysql::config']
   $config_class = { 'mysql::config' => $config_hash }
-
-  create_resources( 'class', $config_class )
+  # create_resources( 'class', $config_class )
 
   package { 'mysql-server':
     ensure => $package_ensure,
